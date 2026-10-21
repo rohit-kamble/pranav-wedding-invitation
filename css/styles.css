@@ -40,6 +40,10 @@ body.is-locked {
   overflow: hidden;
 }
 
+body.is-locked .site-header {
+  display: none;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -55,20 +59,6 @@ input,
 select,
 textarea {
   font: inherit;
-}
-
-.skip-link {
-  position: absolute;
-  left: 12px;
-  top: -40px;
-  z-index: 100;
-  background: var(--maroon);
-  color: var(--champagne);
-  padding: 8px 12px;
-}
-
-.skip-link:focus {
-  top: 12px;
 }
 
 /* Decorative paper grain */
@@ -283,7 +273,7 @@ textarea {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 36px 28px;
+  padding: 40px 34px;
   opacity: 0;
   animation: introScene 8s ease-in-out 1 both;
 }
@@ -300,15 +290,15 @@ textarea {
 .intro-film__sprig--top { top: 16px; right: 15px; transform: rotate(8deg); }
 .intro-film__sprig--bottom { bottom: 16px; left: 15px; transform: rotate(188deg); }
 .intro-film__eyebrow {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   color: #8b7957;
-  font-size: .61rem;
+  font-size: .72rem;
   font-weight: 500;
-  letter-spacing: .27em;
+  letter-spacing: .24em;
   text-transform: uppercase;
 }
 .intro-film__portrait-wrap {
-  width: min(250px, 60vw);
+  width: min(290px, 62vw);
   aspect-ratio: 1 / 1.04;
   margin: 2px auto 16px;
   padding: 6px;
@@ -322,18 +312,18 @@ textarea {
 .intro-film__names {
   margin: 0;
   color: #493b30;
-  font: 500 clamp(2rem, 8vw, 2.65rem)/.98 var(--serif);
+  font: 500 clamp(2.3rem, 8.5vw, 3.15rem)/.98 var(--serif);
   letter-spacing: .015em;
 }
 .intro-film__names span { color: #b39158; font-style: italic; }
 .intro-film__script {
-  margin: 6px 0 12px;
+  margin: 8px 0 14px;
   color: #9f8050;
-  font: italic 1.35rem/1.1 var(--serif);
+  font: italic 1.55rem/1.1 var(--serif);
 }
 .intro-film__date, .intro-film__details {
   color: #786c59;
-  font-size: .63rem;
+  font-size: .72rem;
   letter-spacing: .16em;
   line-height: 1.8;
   text-transform: uppercase;
@@ -346,12 +336,12 @@ textarea {
 .intro-film__message { margin: 0; color: #5f5447; font: 1.12rem/1.55 var(--serif); }
 .intro-film__small { margin: 25px 0 0; color: #8b7957; font-size: .55rem; letter-spacing: .19em; text-transform: uppercase; }
 .intro-film__script--save { margin: 0 0 11px; font-size: 2.45rem; }
-.intro-film__names--compact { font-size: 2.1rem; }
+.intro-film__names--compact { font-size: 2.4rem; }
 .intro-film__rule { width: 42px; height: 1px; margin: 18px 0 13px; background: #b99c64; }
 .intro-film__details { margin: 0 0 13px; }
-.intro-film__venue { margin: 0; color: #5c5144; font: 1.05rem/1.35 var(--serif); }
-.intro-film__hashtag { margin: 14px 0 0; color: #9b8258; font-size: .56rem; letter-spacing: .15em; }
-.intro-film__actions { position: relative; z-index: 1; display: grid; justify-items: center; gap: 4px; margin-top: 13px; }
+.intro-film__venue { margin: 0; color: #5c5144; font: 1.15rem/1.35 var(--serif); }
+.intro-film__hashtag { margin: 14px 0 0; color: #9b8258; font-size: .62rem; letter-spacing: .15em; }
+.intro-film__actions { position: absolute; z-index: 1; top: calc(var(--intro-card-height) + 16px); left: 0; right: 0; display: grid; justify-items: center; gap: 4px; margin-top: 0; }
 .intro-film__actions .btn { min-width: 210px; padding: 11px 22px; border-color: #725638; background: #725638; color: #fffaf0; letter-spacing: .14em; box-shadow: 0 8px 24px rgba(67,50,31,.18); }
 .intro-film__actions .btn:hover, .intro-film__actions .btn:focus-visible { background: #503d2b; color: #fffaf0; }
 .gate__skip { border: 0; padding: 5px 12px; background: transparent; color: #776d5e; font: 500 .63rem var(--sans); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
@@ -1692,9 +1682,9 @@ td {
   .gate__inner { width: min(540px, 94vw); }
   .gate__inner { --intro-card-height: min(70vh, 610px); }
   .intro-film { width: min(500px, 88vw); min-height: 390px; }
-  .intro-film__scene { padding: 30px 22px; }
+  .intro-film__scene { padding: 32px 26px; }
   .intro-film__sprig { width: 95px; }
-  .intro-film__portrait-wrap { width: min(220px, 60vw); }
+  .intro-film__portrait-wrap { width: min(235px, 62vw); }
   .intro-film__message { font-size: 1.02rem; }
   .masonry {
     columns: 1;

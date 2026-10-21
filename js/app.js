@@ -215,18 +215,22 @@
   audio.load();
   let manuallyPaused = false;
   const music = {
-    playing: false,
+    playing: true,
     play() {
+      manuallyPaused = false;
+      this.playing = true;
+      this.updateUi();
       audio
         .play()
         .then(() => {
-          manuallyPaused = false;
           this.playing = true;
           this.updateUi();
         })
         .catch(() => {
-          this.playing = false;
-          this.updateUi();
+          if (audio.paused) {
+            this.playing = false;
+            this.updateUi();
+          }
         });
     },
     pause(manual = false) {
