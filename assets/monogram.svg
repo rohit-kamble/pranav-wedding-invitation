@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="PA monogram">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E7D5A4"/>
+      <stop offset="50%" stop-color="#C6A15B"/>
+      <stop offset="100%" stop-color="#E7D5A4"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="#3D101B" stroke="url(#g)" stroke-width="2"/>
+  <circle cx="60" cy="60" r="50" fill="none" stroke="#C6A15B" stroke-width="0.6" opacity="0.7"/>
+  <path d="M60 10 L63 16 L60 14 L57 16 Z M110 60 L104 63 L106 60 L104 57 Z M60 110 L57 104 L60 106 L63 104 Z M10 60 L16 57 L14 60 L16 63 Z" fill="#C6A15B"/>
+  <text x="60" y="72" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="38" letter-spacing="4" fill="#E7D5A4">PA</text>
+</svg>

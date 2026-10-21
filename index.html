@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pranav & Anuja — A Royal Wedding Invitation</title>
+    <meta
+      name="description"
+      content="You are cordially invited to the wedding of Pranav and Anuja on 14 November 2026 at Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali."
+    />
+    <meta property="og:title" content="Pranav & Anuja — A Royal Wedding Invitation" />
+    <meta
+      property="og:description"
+      content="Join us on 14 November 2026 at Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali."
+    />
+    <meta property="og:image" content="images/couple-portrait.jpg" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="is-locked">
+    <a class="skip-link" href="#main">Skip to invitation</a>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="gate" id="gate" role="dialog" aria-label="Open your wedding invitation">
+      <div class="gate__inner">
+        <p class="gate__kicker">With the blessings of our families</p>
+        <p class="deva">परिवार के आशीर्वाद से</p>
+        <p class="gate__tag">A celebration of love, tradition &amp; forever.</p>
+
+        <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open your invitation">
+          <div class="envelope__body"></div>
+          <div class="envelope__card"><span>PA</span></div>
+          <div class="envelope__flap"></div>
+          <div class="seal" aria-hidden="true">PA</div>
+        </div>
+
+        <button class="btn" id="open-invite" type="button">Open your invitation</button>
+        <button class="gate__skip" id="skip-intro" type="button">Skip introduction</button>
+        <div class="petals" id="petals" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <img src="assets/monogram.svg" alt="" />
+        Pranav &amp; Anuja
+      </a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span>
+        <span class="visually-hidden">Menu</span>
+      </button>
+      <nav class="nav" id="site-nav">
+        <a href="#couple">Couple</a>
+        <a href="#story">Story</a>
+        <a href="#events">Events</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#venue">Venue</a>
+        <a href="#rsvp">RSVP</a>
+        <a href="#share">Invite</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero__media" data-parallax>
+          <img src="images/couple-walk.jpg" alt="Pranav and Anuja walking together" />
+        </div>
+        <div class="hero__veil"></div>
+        <div class="hero__frame reveal">
+          <div class="ornament-corners"></div>
+          <p class="section-kicker">You are cordially invited</p>
+          <p class="deva" id="hero-blessing">शुभ विवाह</p>
+          <h1>
+            <span>The wedding of</span>
+            Pranav <span class="amp">&amp;</span> Anuja
+          </h1>
+          <p class="hero__meta" id="hero-headline">A Royal Celebration of Love</p>
+          <div class="gold-rule"></div>
+          <p class="hero__meta" id="hero-date">14 November 2026</p>
+          <p class="hero__meta" id="hero-venue">Qoyal Palace Mangal Hall · Nigadi, Jath</p>
+          <p style="margin-top: 28px">
+            <a class="btn" href="#events">Explore the celebration</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--maroon jaali center" id="countdown">
+        <div class="wrap">
+          <p class="section-kicker">The countdown</p>
+          <h2>Until we celebrate</h2>
+          <div class="gold-rule"></div>
+          <div class="countdown" id="countdown-grid" aria-live="polite">
+            <div class="count"><b id="d">00</b><span>Days</span></div>
+            <div class="count"><b id="h">00</b><span>Hours</span></div>
+            <div class="count"><b id="m">00</b><span>Minutes</span></div>
+            <div class="count"><b id="s">00</b><span>Seconds</span></div>
+          </div>
+          <p class="lead" id="countdown-message" hidden>The celebration awaits.</p>
+        </div>
+      </section>
+
+      <section class="section section--ivory" id="couple">
+        <div class="wrap couple">
+          <div class="arch in-view">
+            <img src="images/couple-portrait.jpg" alt="Portrait of Pranav and Anuja" width="800" height="1200" />
+          </div>
+          <div class="couple-copy in-view">
+            <p class="section-kicker">The couple</p>
+            <p class="deva" id="couple-blessing">शुभ विवाह</p>
+            <h2 id="couple-tagline">Two Hearts. One Beautiful Journey.</h2>
+            <h3 id="couple-names">Pranav &amp; Anuja</h3>
+            <div class="gold-rule" style="margin-left: 0"></div>
+            <p id="couple-quote">Some moments become memories. Some memories become forever.</p>
+            <p id="couple-intro">
+              With the blessings of our families, we invite you to witness our wedding and to
+              celebrate a lifetime of love, faith, and togetherness.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--paper" id="story">
+        <div class="wrap">
+          <div class="center">
+            <p class="section-kicker">Our story</p>
+            <h2>Moments along the way</h2>
+            <div class="gold-rule"></div>
+          </div>
+          <div class="timeline" id="story-list"></div>
+        </div>
+      </section>
+
+      <section class="section section--ivory" id="events">
+        <div class="wrap">
+          <div class="center">
+            <p class="section-kicker">The celebration</p>
+            <h2>Wedding schedule</h2>
+            <div class="gold-rule"></div>
+            <p class="lead">Join us as we honour tradition and begin this new chapter together.</p>
+          </div>
+          <div class="events" id="event-list"></div>
+        </div>
+      </section>
+
+      <section class="section section--paper" id="gallery">
+        <div class="wrap">
+          <div class="center">
+            <p class="section-kicker">Photographs</p>
+            <h2>A glimpse of our joy</h2>
+            <div class="gold-rule"></div>
+          </div>
+          <div class="filters" id="gallery-filters"></div>
+          <div class="masonry" id="gallery-grid"></div>
+        </div>
+      </section>
+
+      <section class="section section--ivory" id="venue">
+        <div class="wrap venue-grid">
+          <div class="in-view">
+            <img src="images/couple-walk.jpg" alt="Covered walkway at the celebration venue" width="1200" height="800" />
+          </div>
+          <div class="in-view">
+            <p class="section-kicker">Venue &amp; directions</p>
+            <h2 id="venue-name">Qoyal Palace Mangal Hall</h2>
+            <div class="gold-rule" style="margin-left: 0"></div>
+            <ul class="detail-list">
+              <li>
+                <strong>Address</strong>
+                <span id="venue-address">Nigadi, Taluka Jath, Dist. Sangali</span>
+              </li>
+              <li>
+                <strong>Date</strong>
+                <span id="venue-date">Saturday, 14 November 2026</span>
+              </li>
+              <li>
+                <strong>Time</strong>
+                <span id="venue-time">11:00 AM onwards</span>
+              </li>
+            </ul>
+            <a class="btn btn--dark" id="maps-link" href="#" target="_blank" rel="noopener">Get directions</a>
+            <div class="map-frame" id="map-embed"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--maroon jaali" id="rsvp">
+        <div class="wrap">
+          <div class="center">
+            <p class="section-kicker">Kindly reply</p>
+            <h2>RSVP</h2>
+            <div class="gold-rule"></div>
+            <p class="lead">We would be honoured by your presence. Please share your response below.</p>
+          </div>
+          <div class="card">
+            <form class="rsvp-form" id="rsvp-form" novalidate>
+              <div class="form-grid">
+                <label>
+                  <span>Full name</span>
+                  <input name="name" autocomplete="name" required maxlength="80" />
+                </label>
+                <div class="form-row">
+                  <label>
+                    <span>Phone</span>
+                    <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required />
+                  </label>
+                  <label>
+                    <span>Email (optional)</span>
+                    <input name="email" type="email" autocomplete="email" />
+                  </label>
+                </div>
+                <div class="choices" role="radiogroup" aria-label="Attendance">
+                  <label><input type="radio" name="attendance" value="accepts" checked /> Joyfully accepts</label>
+                  <label><input type="radio" name="attendance" value="declines" /> Regretfully declines</label>
+                </div>
+                <label>
+                  <span>Number of attendees</span>
+                  <input name="attendees" type="number" min="1" max="8" value="1" />
+                </label>
+                <fieldset class="events-check">
+                  <legend class="section-kicker" style="color: var(--burgundy)">Events attending</legend>
+                  <div id="rsvp-events"></div>
+                </fieldset>
+                <label>
+                  <span>Dietary preference (optional)</span>
+                  <select name="dietary" id="dietary"></select>
+                </label>
+                <label>
+                  <span>Message to the couple (optional)</span>
+                  <textarea name="message" maxlength="400"></textarea>
+                </label>
+                <label>
+                  <input type="checkbox" name="wishPublic" />
+                  Also share a public wish (moderated before it appears)
+                </label>
+                <button class="btn btn--solid" type="submit">Send response</button>
+                <p class="form-status" id="rsvp-status" role="status"></p>
+              </div>
+            </form>
+            <div class="success-panel" id="rsvp-success">
+              <p class="section-kicker">Your response has been received</p>
+              <h3 style="font-family: var(--serif); font-size: 2rem; margin: 8px 0">Thank you</h3>
+              <p>
+                Thank you for being part of our celebration. We look forward to sharing this special
+                day with you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--ivory" id="wishes">
+        <div class="wrap center">
+          <p class="section-kicker">Guest wishes</p>
+          <h2>Blessings from our loved ones</h2>
+          <div class="gold-rule"></div>
+          <div id="wishes-list" class="events"></div>
+        </div>
+      </section>
+
+      <section class="section section--paper" id="share">
+        <div class="wrap center">
+          <p class="section-kicker">Invite your loved ones</p>
+          <h2>Share the invitation</h2>
+          <div class="gold-rule"></div>
+          <p class="lead">Send this royal invitation to family and friends.</p>
+          <div class="share-row">
+            <button class="btn btn--dark" id="whatsapp-share" type="button">Share on WhatsApp</button>
+            <button class="btn btn--dark" id="copy-link" type="button">Copy invitation link</button>
+            <button class="btn btn--dark" id="native-share" type="button">Share</button>
+          </div>
+          <p class="form-status" id="share-status" role="status"></p>
+          <div class="qr-card">
+            <img src="assets/monogram.svg" alt="PA monogram" width="56" height="56" style="margin: 0 auto" />
+            <p class="section-kicker">Scan to open invitation</p>
+            <div id="qr-target"></div>
+            <div class="share-row" style="margin-top: 12px">
+              <button class="btn btn--dark" id="download-qr-png" type="button">Download PNG</button>
+              <button class="btn btn--dark" id="download-qr-svg" type="button">Download SVG</button>
+              <button class="btn btn--dark" id="print-card" type="button">Print card</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="deva">सर्वमङ्गलमाङ्गल्ये शिवे सर्वार्थसाधिके</p>
+      <h2>With love, Pranav &amp; Anuja</h2>
+      <p>May this union be blessed with love, laughter, and a lifetime of togetherness.</p>
+      <div class="gold-rule"></div>
+      <p style="opacity: 0.75; font-size: 0.85rem">
+        14 November 2026 · Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali
+      </p>
+    </footer>
+
+    <div class="music">
+      <button class="icon-btn" id="music-toggle" type="button" aria-pressed="false" aria-label="Play music">
+        ♪
+      </button>
+      <button class="icon-btn" id="music-mute" type="button" aria-pressed="false" aria-label="Mute music">
+        M
+      </button>
+    </div>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <button class="close" type="button" aria-label="Close">&times;</button>
+      <button class="prev" type="button" aria-label="Previous">‹</button>
+      <figure>
+        <img id="lightbox-image" alt="" />
+        <p id="lightbox-caption"></p>
+      </figure>
+      <button class="next" type="button" aria-label="Next">›</button>
+    </div>
+
+    <style>
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+    </style>
+
+    <script src="js/qrcode.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

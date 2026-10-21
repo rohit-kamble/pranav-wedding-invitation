@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · Pranav & Anuja</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Manrope:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="login-box" id="login-view">
+      <form class="card" id="login-form">
+        <p class="section-kicker">Administration</p>
+        <h2>Pranav &amp; Anuja</h2>
+        <p>Enter the dashboard passphrase to review RSVPs and wishes.</p>
+        <label>
+          <span>Passphrase</span>
+          <input type="password" name="pass" required autocomplete="current-password" />
+        </label>
+        <p style="margin-top: 16px"><button class="btn btn--solid" type="submit">Sign in</button></p>
+        <p class="form-status" id="login-status"></p>
+        <p style="font-size: 0.82rem; color: #6b5e56">
+          This local dashboard stores guest replies in this browser only. It is not a
+          production server. Change the passphrase in <code>js/config.js</code> before sharing.
+        </p>
+      </form>
+    </div>
+
+    <div class="admin-shell" id="dash-view" hidden>
+      <aside class="admin-side">
+        <p class="brand" style="color: var(--champagne); margin-bottom: 28px">PA Admin</p>
+        <a href="#overview">Overview</a>
+        <a href="#rsvps">RSVPs</a>
+        <a href="#wishes">Wishes</a>
+        <a href="#tools">Invitation tools</a>
+        <a href="index.html">View invitation</a>
+        <button class="btn" id="signout" type="button" style="margin-top: 24px">Sign out</button>
+      </aside>
+      <main class="admin-main">
+        <section id="overview">
+          <p class="section-kicker">Dashboard</p>
+          <h2>Wedding overview</h2>
+          <div class="stats" id="stats"></div>
+        </section>
+
+        <section id="rsvps" style="margin-top: 40px">
+          <h2>RSVP records</h2>
+          <div class="form-row" style="margin: 16px 0">
+            <label>
+              <span>Search name</span>
+              <input id="search" type="search" />
+            </label>
+            <label>
+              <span>Filter</span>
+              <select id="filter">
+                <option value="all">All responses</option>
+                <option value="accepts">Acceptances</option>
+                <option value="declines">Declines</option>
+              </select>
+            </label>
+          </div>
+          <button class="btn btn--dark" id="export" type="button">Export CSV</button>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Response</th>
+                  <th>Guests</th>
+                  <th>Events</th>
+                  <th>Received</th>
+                </tr>
+              </thead>
+              <tbody id="rsvp-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="wishes" style="margin-top: 40px">
+          <h2>Guest wishes</h2>
+          <p>Publish a wish before it appears on the public invitation.</p>
+          <div id="wish-list"></div>
+        </section>
+
+        <section id="tools" style="margin-top: 40px">
+          <h2>Invitation tools</h2>
+          <p>Public page: <a href="index.html">Open invitation</a></p>
+          <p>Print the public page for a QR card, or copy the WhatsApp message below.</p>
+          <textarea id="wa-preview" readonly rows="8"></textarea>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>
