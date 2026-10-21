@@ -30,21 +30,8 @@
 
   /* Opening sequence */
   const gate = document.getElementById("gate");
-  const petals = document.getElementById("petals");
   let gateLeaving = false;
   let invitationOpening = false;
-
-  function scatterPetals() {
-    petals.innerHTML = "";
-    for (let i = 0; i < 26; i += 1) {
-      const p = document.createElement("span");
-      p.className = "petal";
-      p.style.left = Math.random() * 100 + "%";
-      p.style.setProperty("--drift", (Math.random() * 100 - 50) + "px");
-      p.style.animationDelay = Math.random() * 0.45 + "s";
-      petals.appendChild(p);
-    }
-  }
 
   function closeGate() {
     if (gateLeaving) return;
@@ -60,9 +47,8 @@
     if (invitationOpening || gateLeaving) return;
     invitationOpening = true;
     gate.classList.add("is-bloom");
-    scatterPetals();
     if (withMusic) music.play();
-    setTimeout(closeGate, reduced ? 0 : 1150);
+    setTimeout(closeGate, reduced ? 0 : 2600);
   }
 
   document.getElementById("open-invite").addEventListener("click", () => openInvitation(true));
@@ -75,12 +61,16 @@
   const nav = document.getElementById("site-nav");
   toggle.addEventListener("click", () => {
     const open = nav.classList.toggle("is-open");
+    toggle.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   });
   nav.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => {
       nav.classList.remove("is-open");
+      toggle.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
     })
   );
 
@@ -223,14 +213,14 @@
   audio.volume = 1;
   audio.muted = false;
   audio.load();
+  let manuallyPaused = false;
   const music = {
     playing: false,
-    muted: false,
     play() {
-      audio.muted = this.muted;
       audio
         .play()
         .then(() => {
+          manuallyPaused = false;
           this.playing = true;
           this.updateUi();
         })
@@ -239,30 +229,33 @@
           this.updateUi();
         });
     },
-    pause() {
+    pause(manual = false) {
       audio.pause();
+      if (manual) manuallyPaused = true;
       this.playing = false;
       this.updateUi();
     },
     toggle() {
-      this.playing ? this.pause() : this.play();
-    },
-    toggleMute() {
-      this.muted = !this.muted;
-      audio.muted = this.muted;
-      this.updateUi();
+      audio.paused ? this.play() : this.pause(true);
     },
     updateUi() {
       const playBtn = document.getElementById("music-toggle");
-      const muteBtn = document.getElementById("music-mute");
       playBtn.setAttribute("aria-pressed", String(this.playing));
       playBtn.setAttribute("aria-label", this.playing ? "Pause music" : "Play music");
-      muteBtn.setAttribute("aria-pressed", String(this.muted));
+      playBtn.textContent = this.playing ? "Ⅱ" : "♪";
     },
   };
+  function resumeAfterGesture(event) {
+    if (event.target.closest && event.target.closest("#music-toggle")) return;
+    window.removeEventListener("pointerdown", resumeAfterGesture);
+    window.removeEventListener("keydown", resumeAfterGesture);
+    if (!manuallyPaused) music.play();
+  }
+  window.addEventListener("pointerdown", resumeAfterGesture);
+  window.addEventListener("keydown", resumeAfterGesture);
   document.getElementById("music-toggle").addEventListener("click", () => music.toggle());
-  document.getElementById("music-mute").addEventListener("click", () => music.toggleMute());
   window.addEventListener("beforeunload", () => music.pause());
+  music.updateUi();
   music.play();
 
   /* Share + QR */

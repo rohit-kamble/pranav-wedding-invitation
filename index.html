@@ -22,7 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=17" />
+    <link rel="stylesheet" href="css/styles.css?v=31" />
   </head>
   <body class="is-locked">
     <a class="skip-link" href="#main">Skip to invitation</a>
@@ -72,7 +72,6 @@
           <button class="btn" id="open-invite" type="button">Open your invitation</button>
           <button class="gate__skip" id="skip-intro" type="button">Skip introduction</button>
         </div>
-        <div class="petals" id="petals" aria-hidden="true"></div>
       </div>
     </div>
 
@@ -81,8 +80,8 @@
         <img src="assets/monogram.svg" alt="" />
         Pranav &amp; Anuja
       </a>
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span></span>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__icon" aria-hidden="true"></span>
         <span class="visually-hidden">Menu</span>
       </button>
       <nav class="nav" id="site-nav">
@@ -100,6 +99,8 @@
           <img src="images/couple-walk.jpg" alt="Pranav and Anuja walking together" />
         </div>
         <div class="hero__veil"></div>
+        <div class="hero__florals" aria-hidden="true">
+        </div>
         <div class="hero__frame reveal">
           <div class="ornament-corners"></div>
           <p class="section-kicker">You are cordially invited</p>
@@ -205,26 +206,30 @@
         </div>
       </section>
 
-      <section class="section section--paper" id="share">
-        <div class="wrap center">
-          <p class="section-kicker">Invite your loved ones</p>
-          <h2>Share the invitation</h2>
-          <div class="gold-rule"></div>
-          <p class="lead">Send this royal invitation to family and friends.</p>
-          <div class="share-row">
-            <button class="btn btn--dark" id="whatsapp-share" type="button">Share on WhatsApp</button>
-            <button class="btn btn--dark" id="copy-link" type="button">Copy invitation link</button>
-            <button class="btn btn--dark" id="native-share" type="button">Share</button>
+      <section class="share-footer" id="share">
+        <div class="wrap share-footer__inner">
+          <div class="share-footer__message">
+            <p class="section-kicker">A celebration is sweeter when shared</p>
+            <h2>Share our invitation</h2>
+            <p class="share-footer__lead">Send a little joy to family and friends.</p>
+            <div class="share-row share-footer__actions">
+              <button class="btn share-footer__primary" id="whatsapp-share" type="button">Share on WhatsApp</button>
+              <button class="btn share-footer__secondary" id="copy-link" type="button">Copy link</button>
+              <button class="btn share-footer__secondary" id="native-share" type="button">More options</button>
+            </div>
+            <p class="form-status share-footer__status" id="share-status" role="status"></p>
           </div>
-          <p class="form-status" id="share-status" role="status"></p>
-          <div class="qr-card">
-            <img src="assets/monogram.svg" alt="PA monogram for Pranav and Anuja" width="56" height="56" style="margin: 0 auto" />
-            <p class="section-kicker">Scan to open invitation</p>
-            <div id="qr-target"></div>
-            <div class="share-row" style="margin-top: 12px">
-              <button class="btn btn--dark" id="download-qr-png" type="button">Download PNG</button>
-              <button class="btn btn--dark" id="download-qr-svg" type="button">Download SVG</button>
-              <button class="btn btn--dark" id="print-card" type="button">Print card</button>
+          <div class="share-footer__qr-card">
+            <div class="share-footer__qr" id="qr-target"></div>
+            <div class="share-footer__qr-details">
+              <img src="assets/monogram.svg" alt="PA monogram for Pranav and Anuja" width="38" height="38" />
+              <p class="section-kicker">Keep the invitation close</p>
+              <p>Scan to open it anytime.</p>
+              <div class="share-footer__tools">
+                <button class="share-footer__tool" id="download-qr-png" type="button">PNG</button>
+                <button class="share-footer__tool" id="download-qr-svg" type="button">SVG</button>
+                <button class="share-footer__tool" id="print-card" type="button">Print</button>
+              </div>
             </div>
           </div>
         </div>
@@ -235,11 +240,8 @@
       <button class="icon-btn" id="music-toggle" type="button" aria-pressed="false" aria-label="Play music">
         ♪
       </button>
-      <button class="icon-btn" id="music-mute" type="button" aria-pressed="false" aria-label="Mute music">
-        M
-      </button>
     </div>
-    <audio id="background-music" loop preload="none"></audio>
+    <audio id="background-music" autoplay loop preload="auto"></audio>
 
     <style>
       .visually-hidden {
@@ -254,6 +256,6 @@
     <script src="js/qrcode.min.js"></script>
     <script src="js/config.js?v=3"></script>
     <script src="js/storage.js"></script>
-    <script src="js/app.js?v=10"></script>
+    <script src="js/app.js?v=16"></script>
   </body>
 </html>
