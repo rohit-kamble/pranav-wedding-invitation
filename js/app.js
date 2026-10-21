@@ -30,21 +30,25 @@
 
   /* Opening sequence */
   const gate = document.getElementById("gate");
-  const envelope = document.getElementById("envelope");
   const petals = document.getElementById("petals");
+  let gateLeaving = false;
+  let invitationOpening = false;
 
   function scatterPetals() {
     petals.innerHTML = "";
-    for (let i = 0; i < 18; i += 1) {
+    for (let i = 0; i < 26; i += 1) {
       const p = document.createElement("span");
       p.className = "petal";
       p.style.left = Math.random() * 100 + "%";
-      p.style.animationDelay = Math.random() * 0.8 + "s";
+      p.style.setProperty("--drift", (Math.random() * 100 - 50) + "px");
+      p.style.animationDelay = Math.random() * 0.45 + "s";
       petals.appendChild(p);
     }
   }
 
   function closeGate() {
+    if (gateLeaving) return;
+    gateLeaving = true;
     document.body.classList.remove("is-locked");
     gate.classList.add("is-leaving");
     setTimeout(() => {
@@ -53,23 +57,17 @@
   }
 
   function openInvitation(withMusic) {
-    envelope.classList.add("is-open");
+    if (invitationOpening || gateLeaving) return;
+    invitationOpening = true;
     gate.classList.add("is-bloom");
     scatterPetals();
     if (withMusic) music.play();
-    setTimeout(closeGate, reduced ? 0 : 1600);
+    setTimeout(closeGate, reduced ? 0 : 1150);
   }
 
   document.getElementById("open-invite").addEventListener("click", () => openInvitation(true));
   document.getElementById("skip-intro").addEventListener("click", closeGate);
-  envelope.addEventListener("click", () => openInvitation(true));
-  envelope.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openInvitation(true);
-    }
-  });
-
+  if (!reduced) setTimeout(() => openInvitation(false), 8000);
   if (reduced) closeGate();
 
   /* Nav */
@@ -159,95 +157,6 @@
       .join("");
   }
 
-  const rsvpEvents = document.getElementById("rsvp-events");
-  rsvpEvents.innerHTML = publishedEvents
-    .map(
-      (ev) =>
-        `<label><input type="checkbox" name="eventIds" value="${ev.id}" checked /> ${ev.title}</label>`
-    )
-    .join("");
-
-  const dietary = document.getElementById("dietary");
-  dietary.innerHTML = (cfg.rsvp.dietaryOptions || []).map((o) => `<option>${o}</option>`).join("");
-  document.querySelector('[name="attendees"]').max = cfg.rsvp.maxAttendees || 8;
-
-  /* Gallery */
-  const photos = (cfg.gallery || []).filter((p) => p.published);
-  const filters = document.getElementById("gallery-filters");
-  const grid = document.getElementById("gallery-grid");
-  const cats = cfg.galleryCategories || ["All"];
-  let activeCat = "All";
-
-  function renderGallery() {
-    const items = photos.filter((p) => activeCat === "All" || p.category === activeCat);
-    if (!items.length) {
-      grid.innerHTML = '<p class="empty">Photographs will be shared here soon.</p>';
-      return;
-    }
-    grid.innerHTML = items
-      .map(
-        (p, i) => `
-        <figure tabindex="0" data-index="${photos.indexOf(p)}">
-          <img src="${p.src}" alt="${p.alt}" width="800" height="1066" loading="lazy" />
-          <figcaption>${p.caption || ""}</figcaption>
-        </figure>`
-      )
-      .join("");
-  }
-
-  filters.innerHTML = cats
-    .map((c) => `<button class="chip${c === "All" ? " is-active" : ""}" type="button" data-cat="${c}">${c}</button>`)
-    .join("");
-  filters.addEventListener("click", (e) => {
-    const btn = e.target.closest("button");
-    if (!btn) return;
-    activeCat = btn.dataset.cat;
-    filters.querySelectorAll("button").forEach((b) => b.classList.toggle("is-active", b === btn));
-    renderGallery();
-  });
-  renderGallery();
-
-  const lightbox = document.getElementById("lightbox");
-  const lbImage = document.getElementById("lightbox-image");
-  const lbCaption = document.getElementById("lightbox-caption");
-  let lbIndex = 0;
-
-  function openLightbox(index) {
-    lbIndex = index;
-    const photo = photos[lbIndex];
-    if (!photo) return;
-    lbImage.src = photo.src;
-    lbImage.alt = photo.alt;
-    lbCaption.textContent = photo.caption || "";
-    lightbox.hidden = false;
-    lightbox.classList.add("is-open");
-  }
-
-  function closeLightbox() {
-    lightbox.hidden = true;
-    lightbox.classList.remove("is-open");
-  }
-
-  grid.addEventListener("click", (e) => {
-    const fig = e.target.closest("figure");
-    if (fig) openLightbox(Number(fig.dataset.index));
-  });
-  grid.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      const fig = e.target.closest("figure");
-      if (fig) openLightbox(Number(fig.dataset.index));
-    }
-  });
-  lightbox.querySelector(".close").addEventListener("click", closeLightbox);
-  lightbox.querySelector(".prev").addEventListener("click", () => openLightbox((lbIndex - 1 + photos.length) % photos.length));
-  lightbox.querySelector(".next").addEventListener("click", () => openLightbox((lbIndex + 1) % photos.length));
-  document.addEventListener("keydown", (e) => {
-    if (!lightbox.classList.contains("is-open")) return;
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowLeft") openLightbox((lbIndex - 1 + photos.length) % photos.length);
-    if (e.key === "ArrowRight") openLightbox((lbIndex + 1) % photos.length);
-  });
-
   /* Countdown */
   const target = cfg.wedding.dateISO ? new Date(cfg.wedding.dateISO) : null;
   const msg = document.getElementById("countdown-message");
@@ -302,50 +211,36 @@
     );
   }
 
-  /* Music — original tanpura-like drone via Web Audio, no copyrighted file */
+  /* Background music from the project assets */
+  const audio = document.getElementById("background-music");
+  audio.pause();
+  audio.currentTime = 0;
+  audio.src =
+    "assets/" +
+    encodeURIComponent(
+      "Jaymangal asthagatha_ jaimangal Atthagatha buddha vandana, buddha pooja #viralsong [LXwF2eQX2ow].mp3"
+    );
+  audio.volume = 1;
+  audio.muted = false;
+  audio.load();
   const music = {
-    ctx: null,
-    nodes: [],
     playing: false,
     muted: false,
     play() {
-      try {
-        if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        if (this.ctx.state === "suspended") this.ctx.resume();
-        if (this.playing) {
+      audio.muted = this.muted;
+      audio
+        .play()
+        .then(() => {
+          this.playing = true;
           this.updateUi();
-          return;
-        }
-        const master = this.ctx.createGain();
-        master.gain.value = this.muted ? 0 : 0.045;
-        master.connect(this.ctx.destination);
-        const freqs = [130.81, 196.0, 261.63];
-        this.nodes = freqs.map((freq, i) => {
-          const osc = this.ctx.createOscillator();
-          const g = this.ctx.createGain();
-          osc.type = i === 0 ? "sine" : "triangle";
-          osc.frequency.value = freq;
-          g.gain.value = i === 0 ? 0.9 : 0.25;
-          osc.connect(g);
-          g.connect(master);
-          osc.start();
-          return osc;
+        })
+        .catch(() => {
+          this.playing = false;
+          this.updateUi();
         });
-        this.master = master;
-        this.playing = true;
-        this.updateUi();
-      } catch {
-        this.playing = false;
-        this.updateUi();
-      }
     },
     pause() {
-      this.nodes.forEach((n) => {
-        try {
-          n.stop();
-        } catch {}
-      });
-      this.nodes = [];
+      audio.pause();
       this.playing = false;
       this.updateUi();
     },
@@ -354,7 +249,7 @@
     },
     toggleMute() {
       this.muted = !this.muted;
-      if (this.master) this.master.gain.value = this.muted ? 0 : 0.045;
+      audio.muted = this.muted;
       this.updateUi();
     },
     updateUi() {
@@ -368,101 +263,7 @@
   document.getElementById("music-toggle").addEventListener("click", () => music.toggle());
   document.getElementById("music-mute").addEventListener("click", () => music.toggleMute());
   window.addEventListener("beforeunload", () => music.pause());
-
-  /* RSVP */
-  const form = document.getElementById("rsvp-form");
-  const status = document.getElementById("rsvp-status");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    status.className = "form-status";
-    const data = new FormData(form);
-    const name = String(data.get("name") || "").trim();
-    const phone = String(data.get("phone") || "").trim();
-    const email = String(data.get("email") || "").trim();
-    const attendance = String(data.get("attendance") || "accepts");
-    const attendees = Number(data.get("attendees") || 1);
-    const dietaryPref = String(data.get("dietary") || "");
-    const message = String(data.get("message") || "").trim();
-    const eventIds = data.getAll("eventIds");
-
-    if (name.length < 2) {
-      status.textContent = "Please enter your full name.";
-      status.classList.add("is-error");
-      return;
-    }
-    if (!window.PAStore.isValidIndianPhone(phone)) {
-      status.textContent = "Please enter a valid 10-digit mobile number.";
-      status.classList.add("is-error");
-      return;
-    }
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      status.textContent = "Please enter a valid email, or leave it blank.";
-      status.classList.add("is-error");
-      return;
-    }
-    if (attendees < 1 || attendees > (cfg.rsvp.maxAttendees || 8)) {
-      status.textContent = "Please choose a valid number of attendees.";
-      status.classList.add("is-error");
-      return;
-    }
-    if (!window.PAStore.canSubmit(8000)) {
-      status.textContent = "Please wait a moment before sending another response.";
-      status.classList.add("is-error");
-      return;
-    }
-
-    try {
-      const existing = window.PAStore.findRsvpByPhone(phone);
-      const record = window.PAStore.saveRsvp({
-        name,
-        phone,
-        email,
-        attendance,
-        attendees: attendance === "declines" ? 0 : attendees,
-        dietary: dietaryPref,
-        message,
-        eventIds,
-      });
-      if (data.get("wishPublic") && message) {
-        window.PAStore.saveWish({
-          id: crypto.randomUUID(),
-          name,
-          message,
-          published: false,
-          createdAt: new Date().toISOString(),
-        });
-      }
-      window.PAStore.markSubmit();
-      form.classList.add("is-hidden");
-      document.getElementById("rsvp-success").classList.add("is-visible");
-      status.textContent = existing
-        ? "Your earlier response has been updated."
-        : "";
-      return record;
-    } catch {
-      status.textContent = "We could not save your response. Please try again.";
-      status.classList.add("is-error");
-    }
-  });
-
-  /* Wishes */
-  const publishedWishes = window.PAStore.getWishes().filter((w) => w.published);
-  const wishesList = document.getElementById("wishes-list");
-  if (!publishedWishes.length) {
-    wishesList.innerHTML = '<p class="empty">Blessings from our guests will appear here after they are shared.</p>';
-  } else {
-    wishesList.innerHTML = publishedWishes
-      .map(
-        (w) => `
-        <article class="event-card">
-          <div class="event-card__body">
-            <h3>${w.name}</h3>
-            <p>${w.message}</p>
-          </div>
-        </article>`
-      )
-      .join("");
-  }
+  music.play();
 
   /* Share + QR */
   function shareMessage() {
@@ -515,8 +316,14 @@
     const qr = qrcode(0, "M");
     qr.addData(url);
     qr.make();
-    target.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 4, scalable: true });
-    const svg = target.querySelector("svg");
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", "Open the online wedding invitation");
+    link.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 4, scalable: true });
+    target.replaceChildren(link);
+    const svg = link.querySelector("svg");
     if (svg) {
       svg.setAttribute("role", "img");
       svg.setAttribute("aria-label", "QR code for the wedding invitation");

@@ -27,17 +27,17 @@ window.WEDDING = {
   },
 
   venue: {
-    name: "Qoyal Palace Mangal Hall",
+    name: "Royal Palace Mangal Hall",
     address: "Nigadi, Taluka Jath, Dist. Sangali",
     city: "Jath, Sangali",
     region: "Maharashtra",
-    mapsQuery: "Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist Sangali",
+    mapsQuery: "Royal Palace Mangal Hall, Nigadi, Taluka Jath, Dist Sangali",
     parking: "",
     accommodation: "",
     contact: "",
   },
 
-  publicUrl: "",
+  publicUrl: "https://rohit-kamble.github.io/pranav-wedding-invitation/",
 
   events: [
     {
@@ -47,7 +47,7 @@ window.WEDDING = {
       date: "2026-11-14",
       start: "11:00",
       end: "",
-      venue: "Qoyal Palace Mangal Hall",
+      venue: "Royal Palace Mangal Hall",
       address: "Nigadi, Taluka Jath, Dist. Sangali",
       dressCode: "Traditional / festive attire",
       image: "images/couple-portrait.jpg",
@@ -84,7 +84,7 @@ window.WEDDING = {
       id: "wedding-day",
       title: "The Wedding Celebration",
       date: "14 November 2026",
-      description: "We look forward to celebrating our wedding with you at Qoyal Palace Mangal Hall.",
+      description: "We look forward to celebrating our wedding with you at Royal Palace Mangal Hall.",
       image: "images/couple-walk.jpg",
       published: true,
     },
@@ -134,6 +134,6 @@ window.WEDDING = {
 
   seo: {
     description:
-      "You are cordially invited to the wedding of Pranav and Anuja on 14 November 2026 at Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali.",
+      "You are cordially invited to the wedding of Pranav and Anuja on 14 November 2026 at Royal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali.",
   },
 };

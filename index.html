@@ -6,12 +6,12 @@
     <title>Pranav & Anuja — A Royal Wedding Invitation</title>
     <meta
       name="description"
-      content="You are cordially invited to the wedding of Pranav and Anuja on 14 November 2026 at Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali."
+      content="You are cordially invited to the wedding of Pranav and Anuja on 14 November 2026 at Royal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali."
     />
     <meta property="og:title" content="Pranav & Anuja — A Royal Wedding Invitation" />
     <meta
       property="og:description"
-      content="Join us on 14 November 2026 at Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali."
+      content="Join us on 14 November 2026 at Royal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali."
     />
     <meta property="og:image" content="images/couple-portrait.jpg" />
     <meta property="og:type" content="website" />
@@ -22,27 +22,56 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=17" />
   </head>
   <body class="is-locked">
     <a class="skip-link" href="#main">Skip to invitation</a>
     <div class="grain" aria-hidden="true"></div>
 
     <div class="gate" id="gate" role="dialog" aria-label="Open your wedding invitation">
+      <div class="gate__light" aria-hidden="true"></div>
+      <div class="gate__side-rail gate__side-rail--left" aria-hidden="true"></div>
+      <div class="gate__side-rail gate__side-rail--right" aria-hidden="true"></div>
       <div class="gate__inner">
-        <p class="gate__kicker">With the blessings of our families</p>
-        <p class="deva">परिवार के आशीर्वाद से</p>
-        <p class="gate__tag">A celebration of love, tradition &amp; forever.</p>
+        <div class="intro-film" aria-label="Wedding invitation preview">
+          <div class="intro-film__scene intro-film__scene--cover">
+            <img class="intro-film__sprig intro-film__sprig--top" src="assets/botanical-sprig.svg" alt="" aria-hidden="true" />
+            <img class="intro-film__sprig intro-film__sprig--bottom" src="assets/botanical-sprig.svg" alt="" aria-hidden="true" />
+            <p class="intro-film__eyebrow">शुभ विवाह</p>
+            <div class="intro-film__portrait-wrap"><img class="intro-film__portrait" src="images/couple-portrait.jpg" alt="Pranav and Anuja" /></div>
+            <h1 class="intro-film__names">Pranav <span>&amp;</span> Anuja</h1>
+            <p class="intro-film__script">are getting married</p>
+            <span class="intro-film__date">14 November 2026</span>
+          </div>
 
-        <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open your invitation">
-          <div class="envelope__body"></div>
-          <div class="envelope__card"><span>PA</span></div>
-          <div class="envelope__flap"></div>
-          <div class="seal" aria-hidden="true">PA</div>
+          <div class="intro-film__scene intro-film__scene--together">
+            <img class="intro-film__sprig intro-film__sprig--top" src="assets/botanical-sprig.svg" alt="" aria-hidden="true" />
+            <img class="intro-film__sprig intro-film__sprig--bottom" src="assets/botanical-sprig.svg" alt="" aria-hidden="true" />
+            <p class="intro-film__eyebrow">A new chapter begins</p>
+            <span class="intro-film__wash intro-film__wash--blue" aria-hidden="true"></span>
+            <span class="intro-film__wash intro-film__wash--gold" aria-hidden="true"></span>
+            <h2 class="intro-film__script intro-film__script--large">Together</h2>
+            <p class="intro-film__message">With the blessings of our families,<br />we would love you to join us.</p>
+            <p class="intro-film__small">A celebration of love, tradition &amp; forever</p>
+          </div>
+
+          <div class="intro-film__scene intro-film__scene--details">
+            <img class="intro-film__sprig intro-film__sprig--top" src="assets/botanical-sprig.svg" alt="" aria-hidden="true" />
+            <img class="intro-film__sprig intro-film__sprig--bottom" src="assets/botanical-sprig.svg" alt="" aria-hidden="true" />
+            <p class="intro-film__script intro-film__script--save">Save the date</p>
+            <p class="intro-film__eyebrow">for the wedding of</p>
+            <h2 class="intro-film__names intro-film__names--compact">Pranav <span>&amp;</span> Anuja</h2>
+            <div class="intro-film__rule"></div>
+            <p class="intro-film__details">14 November 2026<br />11:00 AM onwards</p>
+            <p class="intro-film__venue">Royal Palace Mangal Hall<br />Jath, Sangali</p>
+            <p class="intro-film__hashtag">#PranavAndAnuja</p>
+          </div>
         </div>
 
-        <button class="btn" id="open-invite" type="button">Open your invitation</button>
-        <button class="gate__skip" id="skip-intro" type="button">Skip introduction</button>
+        <div class="intro-film__actions">
+          <button class="btn" id="open-invite" type="button">Open your invitation</button>
+          <button class="gate__skip" id="skip-intro" type="button">Skip introduction</button>
+        </div>
         <div class="petals" id="petals" aria-hidden="true"></div>
       </div>
     </div>
@@ -60,9 +89,7 @@
         <a href="#couple">Couple</a>
         <a href="#story">Story</a>
         <a href="#events">Events</a>
-        <a href="#gallery">Gallery</a>
         <a href="#venue">Venue</a>
-        <a href="#rsvp">RSVP</a>
         <a href="#share">Invite</a>
       </nav>
     </header>
@@ -84,7 +111,7 @@
           <p class="hero__meta" id="hero-headline">A Royal Celebration of Love</p>
           <div class="gold-rule"></div>
           <p class="hero__meta" id="hero-date">14 November 2026</p>
-          <p class="hero__meta" id="hero-venue">Qoyal Palace Mangal Hall · Nigadi, Jath</p>
+          <p class="hero__meta" id="hero-venue">Royal Palace Mangal Hall · Jath, Sangali</p>
           <p style="margin-top: 28px">
             <a class="btn" href="#events">Explore the celebration</a>
           </p>
@@ -149,18 +176,6 @@
         </div>
       </section>
 
-      <section class="section section--paper" id="gallery">
-        <div class="wrap">
-          <div class="center">
-            <p class="section-kicker">Photographs</p>
-            <h2>A glimpse of our joy</h2>
-            <div class="gold-rule"></div>
-          </div>
-          <div class="filters" id="gallery-filters"></div>
-          <div class="masonry" id="gallery-grid"></div>
-        </div>
-      </section>
-
       <section class="section section--ivory" id="venue">
         <div class="wrap venue-grid">
           <div class="in-view">
@@ -168,7 +183,7 @@
           </div>
           <div class="in-view">
             <p class="section-kicker">Venue &amp; directions</p>
-            <h2 id="venue-name">Qoyal Palace Mangal Hall</h2>
+            <h2 id="venue-name">Royal Palace Mangal Hall</h2>
             <div class="gold-rule" style="margin-left: 0"></div>
             <ul class="detail-list">
               <li>
@@ -190,80 +205,6 @@
         </div>
       </section>
 
-      <section class="section section--maroon jaali" id="rsvp">
-        <div class="wrap">
-          <div class="center">
-            <p class="section-kicker">Kindly reply</p>
-            <h2>RSVP</h2>
-            <div class="gold-rule"></div>
-            <p class="lead">We would be honoured by your presence. Please share your response below.</p>
-          </div>
-          <div class="card">
-            <form class="rsvp-form" id="rsvp-form" novalidate>
-              <div class="form-grid">
-                <label>
-                  <span>Full name</span>
-                  <input name="name" autocomplete="name" required maxlength="80" />
-                </label>
-                <div class="form-row">
-                  <label>
-                    <span>Phone</span>
-                    <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required />
-                  </label>
-                  <label>
-                    <span>Email (optional)</span>
-                    <input name="email" type="email" autocomplete="email" />
-                  </label>
-                </div>
-                <div class="choices" role="radiogroup" aria-label="Attendance">
-                  <label><input type="radio" name="attendance" value="accepts" checked /> Joyfully accepts</label>
-                  <label><input type="radio" name="attendance" value="declines" /> Regretfully declines</label>
-                </div>
-                <label>
-                  <span>Number of attendees</span>
-                  <input name="attendees" type="number" min="1" max="8" value="1" />
-                </label>
-                <fieldset class="events-check">
-                  <legend class="section-kicker" style="color: var(--burgundy)">Events attending</legend>
-                  <div id="rsvp-events"></div>
-                </fieldset>
-                <label>
-                  <span>Dietary preference (optional)</span>
-                  <select name="dietary" id="dietary"></select>
-                </label>
-                <label>
-                  <span>Message to the couple (optional)</span>
-                  <textarea name="message" maxlength="400"></textarea>
-                </label>
-                <label>
-                  <input type="checkbox" name="wishPublic" />
-                  Also share a public wish (moderated before it appears)
-                </label>
-                <button class="btn btn--solid" type="submit">Send response</button>
-                <p class="form-status" id="rsvp-status" role="status"></p>
-              </div>
-            </form>
-            <div class="success-panel" id="rsvp-success">
-              <p class="section-kicker">Your response has been received</p>
-              <h3 style="font-family: var(--serif); font-size: 2rem; margin: 8px 0">Thank you</h3>
-              <p>
-                Thank you for being part of our celebration. We look forward to sharing this special
-                day with you.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--ivory" id="wishes">
-        <div class="wrap center">
-          <p class="section-kicker">Guest wishes</p>
-          <h2>Blessings from our loved ones</h2>
-          <div class="gold-rule"></div>
-          <div id="wishes-list" class="events"></div>
-        </div>
-      </section>
-
       <section class="section section--paper" id="share">
         <div class="wrap center">
           <p class="section-kicker">Invite your loved ones</p>
@@ -277,7 +218,7 @@
           </div>
           <p class="form-status" id="share-status" role="status"></p>
           <div class="qr-card">
-            <img src="assets/monogram.svg" alt="PA monogram" width="56" height="56" style="margin: 0 auto" />
+            <img src="assets/monogram.svg" alt="PA monogram for Pranav and Anuja" width="56" height="56" style="margin: 0 auto" />
             <p class="section-kicker">Scan to open invitation</p>
             <div id="qr-target"></div>
             <div class="share-row" style="margin-top: 12px">
@@ -290,16 +231,6 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p class="deva">सर्वमङ्गलमाङ्गल्ये शिवे सर्वार्थसाधिके</p>
-      <h2>With love, Pranav &amp; Anuja</h2>
-      <p>May this union be blessed with love, laughter, and a lifetime of togetherness.</p>
-      <div class="gold-rule"></div>
-      <p style="opacity: 0.75; font-size: 0.85rem">
-        14 November 2026 · Qoyal Palace Mangal Hall, Nigadi, Taluka Jath, Dist. Sangali
-      </p>
-    </footer>
-
     <div class="music">
       <button class="icon-btn" id="music-toggle" type="button" aria-pressed="false" aria-label="Play music">
         ♪
@@ -308,16 +239,7 @@
         M
       </button>
     </div>
-
-    <div class="lightbox" id="lightbox" hidden>
-      <button class="close" type="button" aria-label="Close">&times;</button>
-      <button class="prev" type="button" aria-label="Previous">‹</button>
-      <figure>
-        <img id="lightbox-image" alt="" />
-        <p id="lightbox-caption"></p>
-      </figure>
-      <button class="next" type="button" aria-label="Next">›</button>
-    </div>
+    <audio id="background-music" loop preload="none"></audio>
 
     <style>
       .visually-hidden {
@@ -330,8 +252,8 @@
     </style>
 
     <script src="js/qrcode.min.js"></script>
-    <script src="js/config.js"></script>
+    <script src="js/config.js?v=3"></script>
     <script src="js/storage.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=10"></script>
   </body>
 </html>
