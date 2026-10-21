@@ -758,6 +758,7 @@ textarea {
   left: 10px;
   border-right: 0;
   border-bottom: 0;
+  animation: cornerGlow 4.8s ease-in-out infinite alternate;
 }
 
 .hero__frame::after {
@@ -765,6 +766,7 @@ textarea {
   right: 10px;
   border-left: 0;
   border-bottom: 0;
+  animation: cornerGlow 4.8s 1.2s ease-in-out infinite alternate;
 }
 
 .ornament-corners {
@@ -779,6 +781,7 @@ textarea {
   top: auto;
   border-right: 0;
   border-top: 0;
+  animation: cornerGlow 4.8s 2.4s ease-in-out infinite alternate;
 }
 
 .ornament-corners::after {
@@ -788,6 +791,7 @@ textarea {
   left: auto;
   border-left: 0;
   border-top: 0;
+  animation: cornerGlow 4.8s 3.6s ease-in-out infinite alternate;
 }
 
 .hero h1 {
@@ -1121,6 +1125,11 @@ textarea {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 36px;
   align-items: center;
+}
+
+.venue-grid--details {
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
 }
 
 .venue-grid img {
@@ -1526,6 +1535,39 @@ textarea {
   animation-delay: 0.15s;
 }
 
+.hero__frame > :not(.ornament-corners) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.hero__frame.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: none;
+}
+body.has-opened-invite .hero__frame.reveal {
+  animation: rise .9s .15s cubic-bezier(.2,.72,.25,1) forwards;
+}
+body.has-opened-invite .hero__frame > :not(.ornament-corners) {
+  animation: heroTextReveal .72s cubic-bezier(.2,.72,.25,1) both;
+}
+.hero__frame > :nth-child(2) { animation-delay: .18s; }
+.hero__frame > :nth-child(3) { animation-delay: .3s; }
+.hero__frame > :nth-child(4) { animation-delay: .42s; }
+.hero__frame > :nth-child(5) { animation-delay: .54s; }
+.hero__frame > :nth-child(6) { animation-delay: .66s; }
+.hero__frame > :nth-child(7) { animation-delay: .78s; }
+.hero__frame > :nth-child(8) { animation-delay: .9s; }
+.hero__frame > :nth-child(9) { animation-delay: 1.02s; }
+
+@keyframes heroTextReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cornerGlow {
+  from { opacity: .5; }
+  to { opacity: 1; }
+}
+
 @keyframes rise {
   to {
     opacity: 1;
@@ -1543,6 +1585,16 @@ textarea {
   opacity: 1;
   transform: none;
 }
+
+.couple-copy.in-view { transition-delay: .14s; }
+.count.in-view:nth-child(2) { transition-delay: .08s; }
+.count.in-view:nth-child(3) { transition-delay: .16s; }
+.count.in-view:nth-child(4) { transition-delay: .24s; }
+.count.in-view:nth-child(5) { transition-delay: .32s; }
+.milestone.in-view:nth-child(even) { transition-delay: .1s; }
+.event-card.in-view:nth-child(2) { transition-delay: .12s; }
+.event-card.in-view:nth-child(3) { transition-delay: .24s; }
+.venue-grid > .in-view:nth-child(2) { transition-delay: .14s; }
 
 /* Admin */
 .admin-shell {
@@ -1682,9 +1734,22 @@ td {
   .gate__inner { width: min(540px, 94vw); }
   .gate__inner { --intro-card-height: min(70vh, 610px); }
   .intro-film { width: min(500px, 88vw); min-height: 390px; }
-  .intro-film__scene { padding: 32px 26px; }
+  .intro-film {
+    animation: none;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  .intro-film__scene {
+    padding: 32px 26px;
+    backface-visibility: hidden;
+    will-change: opacity, transform;
+  }
   .intro-film__sprig { width: 95px; }
-  .intro-film__portrait-wrap { width: min(235px, 62vw); }
+  .intro-film__portrait-wrap {
+    width: min(235px, 62vw);
+    animation: none;
+    backface-visibility: hidden;
+  }
   .intro-film__message { font-size: 1.02rem; }
   .masonry {
     columns: 1;
@@ -1748,6 +1813,12 @@ td {
   }
 
   .hero__media img {
+    transform: none;
+  }
+
+  .hero__frame.reveal,
+  .hero__frame > :not(.ornament-corners) {
+    opacity: 1;
     transform: none;
   }
 

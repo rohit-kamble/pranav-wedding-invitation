@@ -73,14 +73,6 @@ window.WEDDING = {
       published: true,
     },
     {
-      id: "hand-in-hand",
-      title: "Hand in Hand",
-      date: "",
-      description: "Walking forward together, with joy in every step.",
-      image: "images/couple-walk.jpg",
-      published: true,
-    },
-    {
       id: "wedding-day",
       title: "The Wedding Celebration",
       date: "14 November 2026",

@@ -22,7 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=36" />
+    <link rel="stylesheet" href="css/styles.css?v=40" />
   </head>
   <body class="is-locked">
     <div class="grain" aria-hidden="true"></div>
@@ -86,7 +86,6 @@
       <nav class="nav" id="site-nav">
         <a href="#couple">Couple</a>
         <a href="#story">Story</a>
-        <a href="#events">Events</a>
         <a href="#venue">Venue</a>
         <a href="#share">Invite</a>
       </nav>
@@ -113,7 +112,7 @@
           <p class="hero__meta" id="hero-date">14 November 2026</p>
           <p class="hero__meta" id="hero-venue">Royal Palace Mangal Hall · Jath, Sangali</p>
           <p style="margin-top: 28px">
-            <a class="btn" href="#events">Explore the celebration</a>
+            <a class="btn" href="#venue">Explore the venue</a>
           </p>
         </div>
       </section>
@@ -124,10 +123,10 @@
           <h2>Until we celebrate</h2>
           <div class="gold-rule"></div>
           <div class="countdown" id="countdown-grid" aria-live="polite">
-            <div class="count"><b id="d">00</b><span>Days</span></div>
-            <div class="count"><b id="h">00</b><span>Hours</span></div>
-            <div class="count"><b id="m">00</b><span>Minutes</span></div>
-            <div class="count"><b id="s">00</b><span>Seconds</span></div>
+            <div class="count in-view"><b id="d">00</b><span>Days</span></div>
+            <div class="count in-view"><b id="h">00</b><span>Hours</span></div>
+            <div class="count in-view"><b id="m">00</b><span>Minutes</span></div>
+            <div class="count in-view"><b id="s">00</b><span>Seconds</span></div>
           </div>
           <p class="lead" id="countdown-message" hidden>The celebration awaits.</p>
         </div>
@@ -164,23 +163,8 @@
         </div>
       </section>
 
-      <section class="section section--ivory" id="events">
-        <div class="wrap">
-          <div class="center">
-            <p class="section-kicker">The celebration</p>
-            <h2>Wedding schedule</h2>
-            <div class="gold-rule"></div>
-            <p class="lead">Join us as we honour tradition and begin this new chapter together.</p>
-          </div>
-          <div class="events" id="event-list"></div>
-        </div>
-      </section>
-
       <section class="section section--ivory" id="venue">
-        <div class="wrap venue-grid">
-          <div class="in-view">
-            <img src="images/couple-walk.jpg" alt="Covered walkway at the celebration venue" width="1200" height="800" />
-          </div>
+        <div class="wrap venue-grid venue-grid--details">
           <div class="in-view">
             <p class="section-kicker">Venue &amp; directions</p>
             <h2 id="venue-name">Royal Palace Mangal Hall</h2>
@@ -253,8 +237,8 @@
     </style>
 
     <script src="js/qrcode.min.js"></script>
-    <script src="js/config.js?v=3"></script>
+    <script src="js/config.js?v=4"></script>
     <script src="js/storage.js"></script>
-    <script src="js/app.js?v=17"></script>
+    <script src="js/app.js?v=18"></script>
   </body>
 </html>

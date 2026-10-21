@@ -16,18 +16,6 @@
     return String(n).padStart(2, "0");
   }
 
-  function formatDate(isoDate) {
-    if (!isoDate) return "";
-    const d = new Date(isoDate + "T00:00:00+05:30");
-    return d.toLocaleDateString("en-IN", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      timeZone: cfg.wedding.timezone || "Asia/Kolkata",
-    });
-  }
-
   /* Opening sequence */
   const gate = document.getElementById("gate");
   let gateLeaving = false;
@@ -37,6 +25,7 @@
     if (gateLeaving) return;
     gateLeaving = true;
     document.body.classList.remove("is-locked");
+    document.body.classList.add("has-opened-invite");
     gate.classList.add("is-leaving");
     setTimeout(() => {
       gate.style.display = "none";
@@ -115,37 +104,6 @@
       </article>`
     )
     .join("");
-
-  /* Events */
-  const publishedEvents = (cfg.events || []).filter((e) => e.published);
-  const eventList = document.getElementById("event-list");
-  if (!publishedEvents.length) {
-    eventList.innerHTML = '<p class="empty">Celebration details will appear here once they are announced.</p>';
-  } else {
-    eventList.innerHTML = publishedEvents
-      .map((ev) => {
-        const when = [formatDate(ev.date), ev.start && ev.start + (ev.end ? " – " + ev.end : "")].filter(Boolean).join(" · ");
-        const shareText = encodeURIComponent(
-          `You are invited to ${ev.title} for the wedding of ${cfg.couple.displayName}. ${when}. ${ev.venue}, ${ev.address}`
-        );
-        return `
-        <article class="event-card in-view">
-          ${ev.image ? `<img src="${ev.image}" alt="${ev.title}" width="800" height="500" loading="lazy" />` : ""}
-          <div class="event-card__body">
-            <h3>${ev.title}</h3>
-            <p class="event-meta">${when}</p>
-            <p>${ev.description || ""}</p>
-            <p class="event-meta">${ev.venue}<br>${ev.address}</p>
-            ${ev.dressCode ? `<p>Dress code: ${ev.dressCode}</p>` : ""}
-            <div class="event-actions">
-              <a class="btn btn--dark" href="${mapsUrl(ev.address || ev.venue)}" target="_blank" rel="noopener">Directions</a>
-              <a class="btn btn--dark" href="https://wa.me/?text=${shareText}" target="_blank" rel="noopener">WhatsApp</a>
-            </div>
-          </div>
-        </article>`;
-      })
-      .join("");
-  }
 
   /* Countdown */
   const target = cfg.wedding.dateISO ? new Date(cfg.wedding.dateISO) : null;
