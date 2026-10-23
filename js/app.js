@@ -13,7 +13,7 @@
   }
 
   function pad(n) {
-    return String(n).padStart(2, "0");
+    return new Intl.NumberFormat("mr-IN", { minimumIntegerDigits: 2, useGrouping: false }).format(n);
   }
 
   /* Opening sequence */
@@ -32,17 +32,14 @@
     }, reduced ? 0 : 900);
   }
 
-  function openInvitation(withMusic) {
+  function openInvitation() {
     if (invitationOpening || gateLeaving) return;
     invitationOpening = true;
     gate.classList.add("is-bloom");
-    if (withMusic) music.play();
     setTimeout(closeGate, reduced ? 0 : 2600);
   }
 
-  document.getElementById("open-invite").addEventListener("click", () => openInvitation(true));
-  document.getElementById("skip-intro").addEventListener("click", closeGate);
-  if (!reduced) setTimeout(() => openInvitation(false), 8000);
+  if (!reduced) setTimeout(openInvitation, 8000);
   if (reduced) closeGate();
 
   /* Nav */
@@ -52,14 +49,14 @@
     const open = nav.classList.toggle("is-open");
     toggle.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  toggle.setAttribute("aria-label", open ? "मेनू बंद करा" : "मेनू उघडा");
   });
   nav.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => {
       nav.classList.remove("is-open");
       toggle.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Open menu");
+      toggle.setAttribute("aria-label", "मेनू उघडा");
     })
   );
 
@@ -82,7 +79,7 @@
   const maps = mapsUrl(cfg.venue.mapsQuery || cfg.venue.address);
   document.getElementById("maps-link").href = maps;
   document.getElementById("map-embed").innerHTML =
-    '<iframe title="Venue map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=' +
+    '<iframe title="विवाहस्थळाचा नकाशा" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=' +
     encodeURIComponent(cfg.venue.mapsQuery || cfg.venue.address) +
     '&output=embed"></iframe>';
 
@@ -95,14 +92,32 @@
       <article class="milestone in-view">
         <div class="milestone__media">
           <img src="${item.image}" alt="${item.title}" width="800" height="1000" loading="lazy" />
-        </div>
-        <div>
-          ${item.date ? `<time>${item.date}</time>` : ""}
-          <h3>${item.title}</h3>
-          <p>${item.description}</p>
+          <div class="milestone__copy">
+            ${item.date ? `<time>${item.date}</time>` : ""}
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+          </div>
         </div>
       </article>`
     )
+    .join("");
+
+  const eventList = document.getElementById("event-list");
+  const events = (cfg.events || []).filter((event) => event.published);
+  eventList.innerHTML = events
+    .map((event) => {
+      const eventVenue = [event.venue, event.address].filter(Boolean).join(", ");
+      return `
+        <article class="event-card">
+          <div class="event-card__body">
+            <p class="section-kicker">${event.dateLabel || event.date || ""}</p>
+            <h3>${event.title}</h3>
+            ${event.description ? `<p>${event.description}</p>` : ""}
+            ${event.timeLabel ? `<p class="event-meta">वेळ: ${event.timeLabel}</p>` : ""}
+            <p class="event-meta">स्थळ: ${eventVenue}</p>
+          </div>
+        </article>`;
+    })
     .join("");
 
   /* Countdown */
@@ -114,14 +129,14 @@
     if (!target || Number.isNaN(target.getTime())) {
       gridCount.hidden = true;
       msg.hidden = false;
-      msg.textContent = "The celebration awaits.";
+      msg.textContent = "मंगलक्षणाची आतुरतेने वाट पाहत आहोत.";
       return;
     }
     const diff = target.getTime() - Date.now();
     if (diff <= 0) {
       gridCount.hidden = true;
       msg.hidden = false;
-      msg.textContent = "The celebration is here. With love, Pranav & Anuja.";
+      msg.textContent = "आज आपल्या आनंदसोहळ्याचा दिवस! प्रेमपूर्वक — प्रणव आणि अनुजा.";
       return;
     }
     const days = Math.floor(diff / 86400000);
@@ -203,7 +218,7 @@
     updateUi() {
       const playBtn = document.getElementById("music-toggle");
       playBtn.setAttribute("aria-pressed", String(this.playing));
-      playBtn.setAttribute("aria-label", this.playing ? "Pause music" : "Play music");
+      playBtn.setAttribute("aria-label", this.playing ? "संगीत थांबवा" : "संगीत सुरू करा");
       playBtn.textContent = this.playing ? "Ⅱ" : "♪";
     },
   };
@@ -224,11 +239,11 @@
   function shareMessage() {
     const url = invitationUrl();
     const lines = [
-      `With immense joy, we invite you to celebrate the wedding of ${cfg.couple.displayName}.`,
-      cfg.wedding.dateLabel ? `Date: ${cfg.wedding.dateLabel}` : "",
-      cfg.venue.name ? `Venue: ${cfg.venue.name}, ${cfg.venue.address}` : "",
-      url ? `View the invitation and celebration details here: ${url}` : "",
-      "We look forward to celebrating with you!",
+      `${cfg.couple.displayName} यांच्या विवाहसोहळ्यास आपणांस सस्नेह निमंत्रण.`,
+      cfg.wedding.dateLabel ? `दिनांक: ${cfg.wedding.dateLabel}` : "",
+      cfg.venue.name ? `स्थळ: ${cfg.venue.name}, ${cfg.venue.address}` : "",
+      url ? `निमंत्रण आणि सोहळ्याची माहिती येथे पहा: ${url}` : "",
+      "आपल्यासोबत हा आनंद साजरा करण्यास आम्ही उत्सुक आहोत!",
     ].filter(Boolean);
     return lines.join("\n\n");
   }
@@ -241,10 +256,10 @@
   document.getElementById("copy-link").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(invitationUrl() || shareMessage());
-      shareStatus.textContent = "Invitation link copied.";
+      shareStatus.textContent = "निमंत्रणाची लिंक कॉपी झाली.";
       shareStatus.className = "form-status is-ok";
     } catch {
-      shareStatus.textContent = "Copy is unavailable in this browser.";
+      shareStatus.textContent = "या ब्राउझरमध्ये कॉपीची सुविधा उपलब्ध नाही.";
       shareStatus.className = "form-status is-error";
     }
   });
@@ -265,7 +280,7 @@
     target.innerHTML = "";
     if (!url) {
       target.innerHTML =
-        '<p class="empty">A scannable QR code will appear here after the invitation is published on the web.</p>';
+        '<p class="empty">निमंत्रण ऑनलाइन प्रकाशित झाल्यावर येथे स्कॅन करता येणारा QR कोड दिसेल.</p>';
       return null;
     }
     const qr = qrcode(0, "M");
@@ -275,13 +290,13 @@
     link.href = url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", "Open the online wedding invitation");
+    link.setAttribute("aria-label", "ऑनलाइन विवाह निमंत्रण उघडा");
     link.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 4, scalable: true });
     target.replaceChildren(link);
     const svg = link.querySelector("svg");
     if (svg) {
       svg.setAttribute("role", "img");
-      svg.setAttribute("aria-label", "QR code for the wedding invitation");
+      svg.setAttribute("aria-label", "विवाह निमंत्रणाचा QR कोड");
     }
     return qr;
   }
