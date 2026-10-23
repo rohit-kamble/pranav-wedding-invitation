@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>प्रशासक · प्रणव आणि अनुजा</title>
+    <title>Admin · Pranav &amp; Anuja</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,70 +11,70 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Manrope:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=70" />
   </head>
   <body>
     <div class="login-box" id="login-view">
       <form class="card" id="login-form">
-        <p class="section-kicker">प्रशासकीय प्रवेश</p>
-        <h2>प्रणव आणि अनुजा</h2>
-        <p>उपस्थितीची उत्तरे आणि शुभेच्छा पाहण्यासाठी संकेतशब्द भरा.</p>
+        <p class="section-kicker">Admin Sign In</p>
+        <h2>Pranav &amp; Anuja</h2>
+        <p>Enter the password to view RSVPs and guest wishes.</p>
         <label>
-          <span>संकेतशब्द</span>
+          <span>Password</span>
           <input type="password" name="pass" required autocomplete="current-password" />
         </label>
-        <p style="margin-top: 16px"><button class="btn btn--solid" type="submit">प्रवेश करा</button></p>
+        <p style="margin-top: 16px"><button class="btn btn--solid" type="submit">Sign In</button></p>
         <p class="form-status" id="login-status"></p>
         <p style="font-size: 0.82rem; color: var(--champagne)">
-          हे स्थानिक डॅशबोर्ड पाहुण्यांची उत्तरे फक्त या ब्राउझरमध्ये साठवते. हा उत्पादनासाठीचा सर्व्हर नाही. शेअर करण्यापूर्वी <code>js/config.js</code> मधील संकेतशब्द बदला.
+          This local dashboard stores RSVP responses in this browser only. It is not a production server. Change the password in <code>js/config.js</code> before sharing the site.
         </p>
       </form>
     </div>
 
     <div class="admin-shell" id="dash-view" hidden>
       <aside class="admin-side">
-        <p class="brand" style="color: var(--champagne); margin-bottom: 28px">प्रणव आणि अनुजा · प्रशासन</p>
-        <a href="#overview">आढावा</a>
-        <a href="#rsvps">उपस्थितीची उत्तरे</a>
-        <a href="#wishes">शुभेच्छा</a>
-        <a href="#tools">निमंत्रणाची साधने</a>
-        <a href="index.html">निमंत्रण पहा</a>
-        <button class="btn" id="signout" type="button" style="margin-top: 24px">बाहेर पडा</button>
+        <p class="brand" style="color: var(--champagne); margin-bottom: 28px">Pranav &amp; Anuja · Admin</p>
+        <a href="#overview">Overview</a>
+        <a href="#rsvps">RSVPs</a>
+        <a href="#wishes">Guest Wishes</a>
+        <a href="#tools">Invitation Tools</a>
+        <a href="index.html">View Invitation</a>
+        <button class="btn" id="signout" type="button" style="margin-top: 24px">Sign Out</button>
       </aside>
       <main class="admin-main">
         <section id="overview">
-          <p class="section-kicker">डॅशबोर्ड</p>
-          <h2>विवाहसोहळ्याचा आढावा</h2>
+          <p class="section-kicker">Dashboard</p>
+          <h2>Wedding Overview</h2>
           <div class="stats" id="stats"></div>
         </section>
 
         <section id="rsvps" style="margin-top: 40px">
-          <h2>उपस्थितीची नोंद</h2>
+          <h2>RSVP Responses</h2>
           <div class="form-row" style="margin: 16px 0">
             <label>
-              <span>नाव शोधा</span>
+              <span>Search by name</span>
               <input id="search" type="search" />
             </label>
             <label>
-              <span>निवड</span>
+              <span>Filter</span>
               <select id="filter">
-                <option value="all">सर्व उत्तरे</option>
-                <option value="accepts">उपस्थित राहणार</option>
-                <option value="declines">उपस्थित राहू शकणार नाही</option>
+                <option value="all">All responses</option>
+                <option value="accepts">Attending</option>
+                <option value="declines">Unable to attend</option>
               </select>
             </label>
           </div>
-          <button class="btn btn--dark" id="export" type="button">CSV निर्यात करा</button>
+          <button class="btn btn--dark" id="export" type="button">Export CSV</button>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>नाव</th>
-                  <th>दूरध्वनी</th>
-                  <th>उत्तर</th>
-                  <th>पाहुणे</th>
-                  <th>सोहळे</th>
-                  <th>प्राप्त दिनांक</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Attendance</th>
+                  <th>Guests</th>
+                  <th>Events</th>
+                  <th>Submitted</th>
                 </tr>
               </thead>
               <tbody id="rsvp-body"></tbody>
@@ -83,22 +83,22 @@
         </section>
 
         <section id="wishes" style="margin-top: 40px">
-          <h2>पाहुण्यांच्या शुभेच्छा</h2>
-          <p>शुभेच्छा सार्वजनिक निमंत्रणावर दिसण्यापूर्वी त्या प्रकाशित करा.</p>
+          <h2>Guest Wishes</h2>
+          <p>Publish wishes to make them visible on the public invitation.</p>
           <div id="wish-list"></div>
         </section>
 
         <section id="tools" style="margin-top: 40px">
-          <h2>निमंत्रणाची साधने</h2>
-          <p>सार्वजनिक पृष्ठ: <a href="index.html">निमंत्रण उघडा</a></p>
-          <p>QR कार्डसाठी सार्वजनिक पृष्ठ प्रिंट करा किंवा खालील व्हॉट्सॲप संदेश कॉपी करा.</p>
+          <h2>Invitation Tools</h2>
+          <p>Public page: <a href="index.html">Open invitation</a></p>
+          <p>Print the public page for a QR card, or copy the WhatsApp message below.</p>
           <textarea id="wa-preview" readonly rows="8"></textarea>
         </section>
       </main>
     </div>
 
-    <script src="js/config.js"></script>
+    <script src="js/config.js?v=11"></script>
     <script src="js/storage.js"></script>
-    <script src="js/admin.js"></script>
+    <script src="js/admin.js?v=2"></script>
   </body>
 </html>

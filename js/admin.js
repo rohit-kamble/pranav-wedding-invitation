@@ -24,7 +24,7 @@
       sessionStorage.setItem(SESSION, "ok");
       showDash();
     } else {
-      status.textContent = "संकेतशब्द चुकीचा आहे.";
+      status.textContent = "Incorrect password.";
       status.className = "form-status is-error";
     }
   });
@@ -48,10 +48,10 @@
     const events = (cfg.events || []).filter((e) => e.published);
 
     document.getElementById("stats").innerHTML = `
-      <div class="stat"><b>${rsvps.length}</b><span>एकूण उत्तरे</span></div>
-      <div class="stat"><b>${accepts.length}</b><span>उपस्थित राहणार</span></div>
-      <div class="stat"><b>${declines.length}</b><span>उपस्थित राहू शकणार नाही</span></div>
-      <div class="stat"><b>${attendees}</b><span>निश्चित पाहुणे</span></div>
+      <div class="stat"><b>${rsvps.length}</b><span>Total RSVPs</span></div>
+      <div class="stat"><b>${accepts.length}</b><span>Attending</span></div>
+      <div class="stat"><b>${declines.length}</b><span>Unable to attend</span></div>
+      <div class="stat"><b>${attendees}</b><span>Confirmed guests</span></div>
       ${events
         .map((ev) => {
           const count = accepts.filter((r) => (r.eventIds || []).includes(ev.id)).length;
@@ -74,10 +74,10 @@
         <tr>
           <td>${r.name}</td>
           <td>${r.phone}</td>
-          <td>${r.attendance === "accepts" ? "उपस्थित राहणार" : "उपस्थित राहू शकणार नाही"}</td>
+          <td>${r.attendance === "accepts" ? "Attending" : "Unable to attend"}</td>
           <td>${r.attendees}</td>
           <td>${(r.eventIds || []).map((id) => (cfg.events || []).find((event) => event.id === id)?.title || id).join(", ")}</td>
-          <td>${new Date(r.createdAt).toLocaleString("mr-IN")}</td>
+          <td>${new Date(r.createdAt).toLocaleString("en-IN")}</td>
         </tr>`
       )
       .join("");
@@ -91,23 +91,23 @@
             <div class="event-card__body">
               <h3>${w.name}</h3>
               <p>${w.message}</p>
-              <p class="event-meta">${w.published ? "प्रकाशित" : "पडताळणी बाकी"}</p>
+              <p class="event-meta">${w.published ? "Published" : "Pending review"}</p>
               <button class="btn btn--dark" data-wish="${w.id}" type="button">
-                ${w.published ? "प्रकाशन काढा" : "प्रकाशित करा"}
+                ${w.published ? "Unpublish" : "Publish"}
               </button>
             </div>
           </article>`
           )
           .join("")
-      : '<p class="empty">अजून पाहुण्यांच्या शुभेच्छा आलेल्या नाहीत.</p>';
+      : '<p class="empty">No guest wishes have been shared yet.</p>';
 
     const url = location.origin + location.pathname.replace(/admin\.html.*/, "index.html");
     document.getElementById("wa-preview").value = [
-      `${cfg.couple.displayName} यांच्या विवाहसोहळ्यास आपणांस सस्नेह निमंत्रण.`,
-      `दिनांक: ${cfg.wedding.dateLabel}`,
-      `स्थळ: ${cfg.venue.name}, ${cfg.venue.address}`,
-      `निमंत्रण येथे पहा: ${url}`,
-      "आपल्यासोबत हा आनंद साजरा करण्यास आम्ही उत्सुक आहोत!",
+      `You are warmly invited to celebrate the wedding of ${cfg.couple.displayName}.`,
+      `Date: ${cfg.wedding.dateLabel}`,
+      `Venue: ${cfg.venue.name}, ${cfg.venue.address}`,
+      `View the invitation: ${url}`,
+      "We look forward to celebrating with you!",
     ].join("\n\n");
   }
 
@@ -125,14 +125,14 @@
 
   document.getElementById("export").addEventListener("click", () => {
     const rsvps = window.PAStore.getRsvps();
-    const header = ["नाव", "दूरध्वनी", "ईमेल", "उपस्थिती", "पाहुणे", "आहार", "सोहळे", "संदेश", "नोंद दिनांक"];
+    const header = ["Name", "Phone", "Email", "Attendance", "Guests", "Dietary preference", "Events", "Message", "Submitted on"];
     const lines = [header.join(",")].concat(
       rsvps.map((r) =>
         [
           r.name,
           r.phone,
           r.email,
-          r.attendance === "accepts" ? "उपस्थित राहणार" : "उपस्थित राहू शकणार नाही",
+          r.attendance === "accepts" ? "Attending" : "Unable to attend",
           r.attendees,
           r.dietary,
           (r.eventIds || []).join("|"),
@@ -146,7 +146,7 @@
     const blob = new Blob([lines.join("\n")], { type: "text/csv" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "pranav-anuja-upasthiti.csv";
+    a.download = "pranav-anuja-rsvps.csv";
     a.click();
   });
 

@@ -13,7 +13,7 @@
   }
 
   function pad(n) {
-    return new Intl.NumberFormat("mr-IN", { minimumIntegerDigits: 2, useGrouping: false }).format(n);
+    return new Intl.NumberFormat("en-IN", { minimumIntegerDigits: 2, useGrouping: false }).format(n);
   }
 
   /* Opening sequence */
@@ -49,14 +49,14 @@
     const open = nav.classList.toggle("is-open");
     toggle.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
-  toggle.setAttribute("aria-label", open ? "मेनू बंद करा" : "मेनू उघडा");
+  toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   });
   nav.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => {
       nav.classList.remove("is-open");
       toggle.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "मेनू उघडा");
+      toggle.setAttribute("aria-label", "Open menu");
     })
   );
 
@@ -64,8 +64,6 @@
   document.getElementById("hero-blessing").textContent = cfg.couple.blessingHindi;
   document.getElementById("hero-headline").textContent = cfg.couple.headline;
   document.getElementById("hero-date").textContent = cfg.wedding.dateLabel;
-  document.getElementById("hero-venue").textContent =
-    cfg.venue.name + " · " + cfg.venue.city;
   document.getElementById("couple-blessing").textContent = cfg.couple.blessingHindi;
   document.getElementById("couple-tagline").textContent = cfg.couple.tagline;
   document.getElementById("couple-names").textContent = cfg.couple.displayName;
@@ -79,7 +77,7 @@
   const maps = mapsUrl(cfg.venue.mapsQuery || cfg.venue.address);
   document.getElementById("maps-link").href = maps;
   document.getElementById("map-embed").innerHTML =
-    '<iframe title="विवाहस्थळाचा नकाशा" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=' +
+    '<iframe title="Wedding venue map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=' +
     encodeURIComponent(cfg.venue.mapsQuery || cfg.venue.address) +
     '&output=embed"></iframe>';
 
@@ -113,8 +111,8 @@
             <p class="section-kicker">${event.dateLabel || event.date || ""}</p>
             <h3>${event.title}</h3>
             ${event.description ? `<p>${event.description}</p>` : ""}
-            ${event.timeLabel ? `<p class="event-meta">वेळ: ${event.timeLabel}</p>` : ""}
-            <p class="event-meta">स्थळ: ${eventVenue}</p>
+            ${event.timeLabel ? `<p class="event-meta">Time: ${event.timeLabel}</p>` : ""}
+            <p class="event-meta">Venue: ${eventVenue}</p>
           </div>
         </article>`;
     })
@@ -129,14 +127,14 @@
     if (!target || Number.isNaN(target.getTime())) {
       gridCount.hidden = true;
       msg.hidden = false;
-      msg.textContent = "मंगलक्षणाची आतुरतेने वाट पाहत आहोत.";
+      msg.textContent = "We are eagerly waiting for this special day.";
       return;
     }
     const diff = target.getTime() - Date.now();
     if (diff <= 0) {
       gridCount.hidden = true;
       msg.hidden = false;
-      msg.textContent = "आज आपल्या आनंदसोहळ्याचा दिवस! प्रेमपूर्वक — प्रणव आणि अनुजा.";
+      msg.textContent = "Today is our special day! With love, Pranav & Anuja.";
       return;
     }
     const days = Math.floor(diff / 86400000);
@@ -218,7 +216,7 @@
     updateUi() {
       const playBtn = document.getElementById("music-toggle");
       playBtn.setAttribute("aria-pressed", String(this.playing));
-      playBtn.setAttribute("aria-label", this.playing ? "संगीत थांबवा" : "संगीत सुरू करा");
+      playBtn.setAttribute("aria-label", this.playing ? "Pause music" : "Play music");
       playBtn.textContent = this.playing ? "Ⅱ" : "♪";
     },
   };
@@ -239,11 +237,11 @@
   function shareMessage() {
     const url = invitationUrl();
     const lines = [
-      `${cfg.couple.displayName} यांच्या विवाहसोहळ्यास आपणांस सस्नेह निमंत्रण.`,
-      cfg.wedding.dateLabel ? `दिनांक: ${cfg.wedding.dateLabel}` : "",
-      cfg.venue.name ? `स्थळ: ${cfg.venue.name}, ${cfg.venue.address}` : "",
-      url ? `निमंत्रण आणि सोहळ्याची माहिती येथे पहा: ${url}` : "",
-      "आपल्यासोबत हा आनंद साजरा करण्यास आम्ही उत्सुक आहोत!",
+      `You are warmly invited to celebrate the wedding of ${cfg.couple.displayName}.`,
+      cfg.wedding.dateLabel ? `Date: ${cfg.wedding.dateLabel}` : "",
+      cfg.venue.name ? `Venue: ${cfg.venue.name}, ${cfg.venue.address}` : "",
+      url ? `View the invitation and event details: ${url}` : "",
+      "We look forward to celebrating with you!",
     ].filter(Boolean);
     return lines.join("\n\n");
   }
@@ -256,10 +254,10 @@
   document.getElementById("copy-link").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(invitationUrl() || shareMessage());
-      shareStatus.textContent = "निमंत्रणाची लिंक कॉपी झाली.";
+      shareStatus.textContent = "Invitation link copied.";
       shareStatus.className = "form-status is-ok";
     } catch {
-      shareStatus.textContent = "या ब्राउझरमध्ये कॉपीची सुविधा उपलब्ध नाही.";
+      shareStatus.textContent = "Copying is unavailable in this browser.";
       shareStatus.className = "form-status is-error";
     }
   });
@@ -280,7 +278,7 @@
     target.innerHTML = "";
     if (!url) {
       target.innerHTML =
-        '<p class="empty">निमंत्रण ऑनलाइन प्रकाशित झाल्यावर येथे स्कॅन करता येणारा QR कोड दिसेल.</p>';
+        '<p class="empty">A scannable QR code will appear here when the invitation is published online.</p>';
       return null;
     }
     const qr = qrcode(0, "M");
@@ -290,13 +288,13 @@
     link.href = url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", "ऑनलाइन विवाह निमंत्रण उघडा");
+    link.setAttribute("aria-label", "Open the online wedding invitation");
     link.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 4, scalable: true });
     target.replaceChildren(link);
     const svg = link.querySelector("svg");
     if (svg) {
       svg.setAttribute("role", "img");
-      svg.setAttribute("aria-label", "विवाह निमंत्रणाचा QR कोड");
+      svg.setAttribute("aria-label", "QR code for the wedding invitation");
     }
     return qr;
   }
