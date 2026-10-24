@@ -37,7 +37,7 @@ window.WEDDING = {
     contact: "",
   },
 
-  publicUrl: "https://rohit-kamble.github.io/pranav-wedding-invitation/",
+  publicUrl: "https://rohit-kamble.github.io/pranav-wedding-invitation/?v=4",
 
   events: [
     {
