@@ -240,8 +240,8 @@
       `You are warmly invited to celebrate the wedding of ${cfg.couple.displayName}.`,
       cfg.wedding.dateLabel ? `Date: ${cfg.wedding.dateLabel}` : "",
       cfg.venue.name ? `Venue: ${cfg.venue.name}, ${cfg.venue.address}` : "",
-      url ? `View the invitation and event details: ${url}` : "",
       "We look forward to celebrating with you!",
+      url,
     ].filter(Boolean);
     return lines.join("\n\n");
   }
